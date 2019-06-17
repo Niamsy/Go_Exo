@@ -13,19 +13,34 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/goexo.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="46" column="62" selection-start-line="46" selection-start-column="62" selection-end-line="46" selection-end-column="62" />
+            <state relative-caret-position="287">
+              <caret line="39" selection-start-line="39" selection-end-line="39" />
+              <folding>
+                <element signature="e#14#72#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mines/mines.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="539">
+              <caret line="154" column="89" selection-start-line="154" selection-start-column="89" selection-end-line="154" selection-end-column="89" />
+              <folding>
+                <element signature="e#15#40#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/mines/mines.go">
+        <entry file="file://$PROJECT_DIR$/carriers/carriers.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="518">
-              <caret line="76" selection-start-line="76" selection-end-line="76" />
+            <state relative-caret-position="352">
+              <caret line="93" column="107" selection-start-line="93" selection-start-column="107" selection-end-line="93" selection-end-column="107" />
               <folding>
-                <element signature="e#15#33#0" expanded="true" />
+                <element signature="e#18#32#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -48,16 +63,18 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/goexo/goexo.go" />
-        <option value="$PROJECT_DIR$/goexo.go" />
+        <option value="$PROJECT_DIR$/mines/carriers.go" />
         <option value="$PROJECT_DIR$/mines/mines.go" />
+        <option value="$PROJECT_DIR$/goexo.go" />
+        <option value="$PROJECT_DIR$/carriers/carriers.go" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="85" />
     <option name="y" value="25" />
     <option name="width" value="1750" />
-    <option name="height" value="979" />
+    <option name="height" value="980" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -71,6 +88,11 @@
             <path>
               <item name="Go_Exo" type="b2602c69:ProjectViewProjectNode" />
               <item name="Go_Exo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Go_Exo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Go_Exo" type="462c0819:PsiDirectoryNode" />
+              <item name="carriers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Go_Exo" type="b2602c69:ProjectViewProjectNode" />
@@ -127,11 +149,11 @@
     </recent_temporary>
   </component>
   <component name="ToolWindowManager">
-    <frame x="68" y="20" width="1400" height="783" extended-state="0" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49923196" visible="true" weight="0.2738806" />
-      <window_info active="true" id="Structure" order="1" sideWeight="0.50076807" side_tool="true" visible="true" weight="0.2738806" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49716714" visible="true" weight="0.25033557" />
+      <window_info id="Structure" order="1" sideWeight="0.5028329" side_tool="true" visible="true" weight="0.25033557" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -155,19 +177,35 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/goexo.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="46" column="62" selection-start-line="46" selection-start-column="62" selection-end-line="46" selection-end-column="62" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/mines/carriers.go">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/mines/mines.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="518">
-          <caret line="76" selection-start-line="76" selection-end-line="76" />
+        <state relative-caret-position="539">
+          <caret line="154" column="89" selection-start-line="154" selection-start-column="89" selection-end-line="154" selection-end-column="89" />
           <folding>
-            <element signature="e#15#33#0" expanded="true" />
+            <element signature="e#15#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/goexo.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
+          <folding>
+            <element signature="e#14#72#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/carriers/carriers.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="93" column="107" selection-start-line="93" selection-start-column="107" selection-end-line="93" selection-end-column="107" />
+          <folding>
+            <element signature="e#18#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
