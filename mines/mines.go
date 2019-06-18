@@ -14,7 +14,7 @@ const (
 )
 
 type MineRequest struct {
-	Deposit bool
+	Deposit bool // true if deposit from minor, false if request to take from carriers
 	Ores map[MineType]int // Used for deposit
 	OresToTake []MineType // Used for taking ores
 }
@@ -86,6 +86,7 @@ func CoordinateMinors(minors []Minor) {
 	}
 }
 
+// Checks if a silo has enough places to add one ore
 func checkDeposit(mines map[MineType] int, productType MineType, productNb int) int {
 	var toDeliver int
 
@@ -100,6 +101,7 @@ func checkDeposit(mines map[MineType] int, productType MineType, productNb int) 
 	return toDeliver
 }
 
+// Checks if the ore exists and can be given
 func checkToGive(mines map[MineType] int, productType MineType) bool {
 	if mines[productType] > 1 {
 		mines[productType] -= 1
@@ -139,6 +141,7 @@ func CoordinateMines(mines map[MineType] int) {
 	}
 }
 
+// Init mines
 func Mines() map[MineType]int {
 	mines := make(map[MineType]int)
 	mines[Iron] = 0

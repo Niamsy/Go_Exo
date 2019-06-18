@@ -136,6 +136,7 @@ func chooseFactoryToDeliver(factories []Factory, ore mines.MineType) int{
 	return factoryIndex
 }
 
+// Distributes ores to factory
 func deliverToFactories(factories []Factory, toDeliver []mines.MineType) {
 	for i := 0; i < len(toDeliver); i++ {
 		if toDeliver[i] != mines.Default {
@@ -163,6 +164,7 @@ func CoordinateFactories(factories []Factory) {
 	}
 }
 
+//Inits factories
 func Factories() []Factory {
 	var factories = make([]Factory, 3)
 

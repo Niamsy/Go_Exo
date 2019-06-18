@@ -80,6 +80,7 @@ func updateTotalOresTaken(carrier Carrier, oresToTake map[mines.MineType]int) Ca
 	return carrier
 }
 
+//Emulates work of a carrier
 func Carry(carrier Carrier, wg *sync.WaitGroup) {
 	var remainingPlaces = checkRemainingPlaces(carrier)
 
