@@ -41,24 +41,23 @@ func DefineMinors(nbAluminumMinors int, nbIronMinors int, nbTitaniumMinors int) 
 
 	for ; i < nbAluminumMinors; i++ {
 		minors[i] = Minor{Id : i + 1, ProductType : Aluminium, Stack : 0}
-		fmt.Printf("Just defined aluminium minor id %d\n", minors[i].Id)
 	}
 
 	var maxMinorId = i + nbIronMinors
 	for ; i < maxMinorId; i++ {
 		minors[i] = Minor{Id : i + 1, ProductType : Iron, Stack : 0}
-		fmt.Printf("Just defined iron minor id %d\n", minors[i].Id)
 	}
 
 	maxMinorId = i + nbTitaniumMinors
 	for ; i < maxMinorId; i++ {
 		minors[i] = Minor{Id : i + 1, ProductType : Titanium, Stack : 0}
-		fmt.Printf("Just defined titanium minor id %d\n", minors[i].Id)
 	}
+
 	return minors
 }
 
-func Product(minor Minor, wg *sync.WaitGroup){
+// Emulates the work of a Minor
+func Produce(minor Minor, wg *sync.WaitGroup) {
 	minor.Stack += 1 // Create ore each turn
 	MineRequests <- MineRequest{Deposit: true, Ores: map[MineType]int{minor.ProductType : minor.Stack}, OresToTake:nil} //Deliver to mine
 	resp := <- MineResponses
@@ -106,7 +105,7 @@ func checkToGive(mines map[MineType] int, productType MineType) bool {
 	}
 }
 
-func CoordinateMine(mines map[MineType] int) {
+func CoordinateMines(mines map[MineType] int) {
 	for {
 		req := <-MineRequests
 

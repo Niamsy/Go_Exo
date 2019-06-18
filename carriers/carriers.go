@@ -1,6 +1,7 @@
 package carriers
 
 import (
+	"Go_Exo/factories"
 	"Go_Exo/mines"
 	"fmt"
 	"sync"
@@ -14,7 +15,7 @@ var responses = make(chan bool)
 type Carrier struct {
 	Id int
 	Loaded bool
-	cargo [cargoSize]mines.MineType
+	cargo []mines.MineType
 }
 
 func DefineCarriers(nbCarriers int) []Carrier{
@@ -23,6 +24,7 @@ func DefineCarriers(nbCarriers int) []Carrier{
 	for i := 0; i < nbCarriers; i++ {
 		carriers[i].Id = i + 1
 		carriers[i].Loaded = false
+		carriers[i].cargo = make([]mines.MineType, cargoSize)
 		for j := 0; j < cargoSize; j++ {
 			carriers[i].cargo[j] = mines.Default
 		}
@@ -39,22 +41,7 @@ func checkRemainingPlaces(carrier Carrier) int {
 			remainingPlaces += 1
 		}
 	}
-
 	return remainingPlaces
-}
-
-func checkLoaded(carrier Carrier) bool {
-	var empty = 0
-
-	for i := 0; i < cargoSize; i++ {
-		if carrier.cargo[i] == mines.Default {
-			empty += 1
-		}
-	}
-	if empty != cargoSize {
-		return true
-	}
-	return false
 }
 
 func updateCarrierCargo(carrier Carrier, oresToTake map[mines.MineType]int) Carrier {
@@ -86,25 +73,25 @@ func Carry(carrier Carrier, wg *sync.WaitGroup) {
 
 	if remainingPlaces == 0 {
 		carrier.Loaded = true
+	} else {
+		carrier.Loaded = false
 	}
 
 	if carrier.Loaded {
-		// TODO: Deposit to factory
+		factories.FactoryRequests <-factories.FactoryRequest{Deposit: true, ToProduce: factories.Default, ToDeposit: carrier.cargo}
+		resp := <-factories.FactoryResponsesToCarriers
+		carrier.cargo = resp
 	} else {
-		mines.MineRequests <- mines.MineRequest{Deposit : false, Ores : nil, OresToTake : make([]mines.MineType, remainingPlaces)}
+		mines.MineRequests <- mines.MineRequest{Deposit: false, Ores: nil, OresToTake: make([]mines.MineType, remainingPlaces)}
 
 		resp := <-mines.MineResponses
 		carrier = updateCarrierCargo(carrier, resp)
-		carrier.Loaded = checkLoaded(carrier)
-		Requests <- carrier
-		respCarrier := <- responses
-		if respCarrier {
-			wg.Done()
-			return
-		}
 	}
-
-	wg.Done()
+	Requests <-carrier
+	respCarrier := <-responses
+	if respCarrier {
+		wg.Done()
+	}
 }
 
 func CoordinateCarriers(carriers []Carrier) {
