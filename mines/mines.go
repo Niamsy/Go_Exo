@@ -148,6 +148,12 @@ func Mines() map[MineType]int {
 	return mines
 }
 
+func DescribeMines(mines map[MineType]int) {
+	fmt.Printf("[Mine]\n\tType: Aluminium\n\tStack: %d\n", mines[Aluminium])
+	fmt.Printf("[Mine]\n\tType: Titanium\n\tStack: %d\n", mines[Titanium])
+	fmt.Printf("[Mine]\n\tType: Iron\n\tStack: %d\n", mines[Iron])
+}
+
 func DescribeMinor(minor Minor) {
 	var productType = "Titanium"
 	if minor.productType == Aluminium {
@@ -155,5 +161,5 @@ func DescribeMinor(minor Minor) {
 	} else if minor.productType == Iron {
 		productType = "Iron"
 	}
-	fmt.Printf("Minor %d who produced %d %s has in stack %d\n", minor.id, minor.totalProduced, productType, minor.stack)
+	fmt.Printf("[Minor %d]\n\tType: %s\n\tStack: %d\n\tTotal: %d\n", minor.id, productType, minor.stack, minor.totalProduced)
 }

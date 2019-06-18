@@ -181,7 +181,7 @@ func DescribeFactories(factories []Factory) {
 		} else if value.factoryType == HeatShield {
 			productType = "Heat Shield"
 		}
-		fmt.Printf("Factory for %s has produced %d %ss in total. It is loaded with iron: %d, titanium: %d, aluminium: %d\n", productType, value.production, productType, value.silos[mines.Iron], value.silos[mines.Titanium], value.silos[mines.Aluminium])
+		fmt.Printf("[Factory]\n\tType: %s\n\tTotal production: %d\n\tUnused Iron: %d\n\tUnused Titanium: %d\n\tUnused Aluminium: %d\n", productType, value.production, value.silos[mines.Iron], value.silos[mines.Titanium], value.silos[mines.Aluminium])
 	}
 }
 
@@ -192,7 +192,7 @@ func DescribeWorker(worker Worker) {
 	} else if worker.ProductType == HeatShield {
 		productType = "Heat Shield"
 	}
-	fmt.Printf("Worker %d who produced %s has produced %d\n", worker.Id, productType, worker.Produced)
+	fmt.Printf("[Worker %d]\n\tType: %s\n\tTotal produced: %d\n", worker.Id, productType, worker.Produced)
 }
 
 

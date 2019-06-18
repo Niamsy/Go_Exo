@@ -132,5 +132,5 @@ func DescribeCarrier(carrier Carrier) {
 			nbAluminium += 1
 		}
 	}
-	fmt.Printf("Carrier %d is loaded with %d aluminium, %d iron, %d titanium. In total, it took %d aluminiums, %d irons, %d titaniums\n", carrier.id, nbAluminium, nbIron, nbTitanium, carrier.totalOreTaken[mines.Aluminium], carrier.totalOreTaken[mines.Iron], carrier.totalOreTaken[mines.Titanium])
+	fmt.Printf("[Carrier %d]\n\tAluminium: %d\n\tIron: %d\n\tTitanium: %d\n\tTotal taken Aluminium: %d\n\tTotal taken Iron: %d\n\tTotal taken Titanium: %d\n", carrier.id, nbAluminium, nbIron, nbTitanium, carrier.totalOreTaken[mines.Aluminium], carrier.totalOreTaken[mines.Iron], carrier.totalOreTaken[mines.Titanium])
 }

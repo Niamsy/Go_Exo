@@ -27,8 +27,8 @@ func main()  {
 		nbTitaniumMinors, errTitanium := strconv.Atoi(os.Args[4])
 		nbCarriers, errCarrier := strconv.Atoi(os.Args[5])
 		nbSteelWorkers, errSteel := strconv.Atoi(os.Args[6])
-		nbSignWorkers, errSign := strconv.Atoi(os.Args[6])
-		nbHeatShieldWorkers, errShield := strconv.Atoi(os.Args[6])
+		nbSignWorkers, errSign := strconv.Atoi(os.Args[7])
+		nbHeatShieldWorkers, errShield := strconv.Atoi(os.Args[8])
 		if err != nil || nbTurn <= 0 || errAlu != nil || errIron != nil || errTitanium != nil || errCarrier != nil || errSteel != nil || errSign != nil || errShield != nil{
 			fmt.Printf("Error: Wrong given arguments.\n")
 		} else {
@@ -83,10 +83,6 @@ func turn(minors []mines.Minor, carrierActors []carriers.Carrier, workers []fact
 }
 
 func printStats(stats stat, mine map[mines.MineType]int, minors []mines.Minor, carriersActor []carriers.Carrier, workers []factories.Worker, factory []factories.Factory) {
-	fmt.Printf("Simulation finished.\nMinors: %d\nCarriers %d\nWorkers %d\nCost: %d\n", stats.nbMinor, stats.nbCarrier, stats.nbWorker, stats.cost)
-	fmt.Printf("Titanium in mine: %d\nAluminium in mine: %d\nIron in mine: %d\n", mine[mines.Titanium], mine[mines.Aluminium], mine[mines.Iron])
-	factories.DescribeFactories(factory)
-
 	for i := 0; i < len(minors); i++ {
 	 	mines.DescribeMinor(minors[i])
 	}
@@ -98,4 +94,9 @@ func printStats(stats stat, mine map[mines.MineType]int, minors []mines.Minor, c
 	for i := 0; i < len(workers); i++ {
 		factories.DescribeWorker(workers[i])
 	}
+
+	mines.DescribeMines(mine)
+	factories.DescribeFactories(factory)
+
+	fmt.Printf("Simulation finished. Cost: %d\n", stats.cost)
 }
