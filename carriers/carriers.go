@@ -13,21 +13,26 @@ var Requests = make(chan Carrier)
 var responses = make(chan bool)
 
 type Carrier struct {
-	Id int
-	Loaded bool
+	id int
+	loaded bool
 	cargo []mines.MineType
+	totalOreTaken map[mines.MineType]int
 }
 
 func DefineCarriers(nbCarriers int) []Carrier{
 	var carriers = make([]Carrier, nbCarriers)
 
 	for i := 0; i < nbCarriers; i++ {
-		carriers[i].Id = i + 1
-		carriers[i].Loaded = false
+		carriers[i].id = i + 1
+		carriers[i].loaded = false
 		carriers[i].cargo = make([]mines.MineType, cargoSize)
 		for j := 0; j < cargoSize; j++ {
 			carriers[i].cargo[j] = mines.Default
 		}
+		carriers[i].totalOreTaken = make(map[mines.MineType]int)
+		carriers[i].totalOreTaken[mines.Titanium] = 0
+		carriers[i].totalOreTaken[mines.Aluminium] = 0
+		carriers[i].totalOreTaken[mines.Iron] = 0
 	}
 
 	return carriers
@@ -68,24 +73,32 @@ func updateCarrierCargo(carrier Carrier, oresToTake map[mines.MineType]int) Carr
 	return carrier
 }
 
+func updateTotalOresTaken(carrier Carrier, oresToTake map[mines.MineType]int) Carrier {
+	carrier.totalOreTaken[mines.Iron] += oresToTake[mines.Iron]
+	carrier.totalOreTaken[mines.Aluminium] += oresToTake[mines.Aluminium]
+	carrier.totalOreTaken[mines.Titanium] += oresToTake[mines.Titanium]
+	return carrier
+}
+
 func Carry(carrier Carrier, wg *sync.WaitGroup) {
 	var remainingPlaces = checkRemainingPlaces(carrier)
 
 	if remainingPlaces == 0 {
-		carrier.Loaded = true
+		carrier.loaded = true
 	} else {
-		carrier.Loaded = false
+		carrier.loaded = false
 	}
 
-	if carrier.Loaded {
+	if carrier.loaded {
 		factories.FactoryRequests <-factories.FactoryRequest{Deposit: true, ToProduce: factories.Default, ToDeposit: carrier.cargo}
 		resp := <-factories.FactoryResponsesToCarriers
 		carrier.cargo = resp
 	} else {
-		mines.MineRequests <- mines.MineRequest{Deposit: false, Ores: nil, OresToTake: make([]mines.MineType, remainingPlaces)}
+		mines.MineRequests <-mines.MineRequest{Deposit: false, Ores: nil, OresToTake: make([]mines.MineType, remainingPlaces)}
 
 		resp := <-mines.MineResponses
 		carrier = updateCarrierCargo(carrier, resp)
+		carrier = updateTotalOresTaken(carrier, resp)
 	}
 	Requests <-carrier
 	respCarrier := <-responses
@@ -97,11 +110,11 @@ func Carry(carrier Carrier, wg *sync.WaitGroup) {
 func CoordinateCarriers(carriers []Carrier) {
 	for {
 		req := <-Requests
-		if req.Id == 0 {
+		if req.id == 0 {
 			continue
 		}
-		carriers[req.Id - 1] = req
-		responses <- true
+		carriers[req.id - 1] = req
+		responses <-true
 	}
 }
 
@@ -119,5 +132,5 @@ func DescribeCarrier(carrier Carrier) {
 			nbAluminium += 1
 		}
 	}
-	fmt.Printf("Carrier %d is loaded with %d aluminium, %d iron, %d titanium\n", carrier.Id, nbAluminium, nbIron, nbTitanium)
+	fmt.Printf("Carrier %d is loaded with %d aluminium, %d iron, %d titanium. In total, it took %d aluminiums, %d irons, %d titaniums\n", carrier.id, nbAluminium, nbIron, nbTitanium, carrier.totalOreTaken[mines.Aluminium], carrier.totalOreTaken[mines.Iron], carrier.totalOreTaken[mines.Titanium])
 }
