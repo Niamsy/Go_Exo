@@ -1,6 +1,8 @@
 # Go_Exo
 To learn and practice go
 
+Go_Exo must be placed like this: $GOPATH/src/Go_Exo
+
 To build app: go build goexo.go
 
 
