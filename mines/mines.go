@@ -82,7 +82,7 @@ func CoordinateMinors(minors []Minor) {
 		}
 		minors[req.id - 1].stack = req.stack
 		minors[req.id - 1].totalProduced = req.totalProduced
-		responses <- true
+		responses <-true
 	}
 }
 
